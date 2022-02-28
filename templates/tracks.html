@@ -2,9 +2,10 @@
 {% block content %}
 <h2>List of Tracks Released in 2009-10</h2>
 {% for track in tracks %}
-{{ track["track_name"] }} |
-<a href = {{ url_for('artist_details', id=(track["artist_id"])) }}>{{ track["artist_name"] }}</a> |
-{{ track["track_id"] }} |
+Title: {{ track["track_name"] }} |
+Artist: <a href = {{ url_for('artist_details', id=(track["artist_id"])) }}>{{ track["artist_name"] }}</a> |
+Year: {{ track["year"]}} |
+ID: {{ track["track_id"] }} |
 <br>
 <br>
 {% endfor %}
