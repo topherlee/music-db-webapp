@@ -25,7 +25,7 @@ with open('dataset/unique_artists.csv', newline='') as artist_file:
         cursor.execute('INSERT INTO artists VALUES (?, ?, ?)', (artist_id, artist_name, artist_mbid))
         connection.commit()
 
-with open('dataset/tracks_2010.csv', newline='') as tracks_file:
+with open('dataset/tracks_2009_2010.csv', newline='') as tracks_file:
     reader = csv.reader(tracks_file, delimiter=",")
     next(reader)                                    #skip header line
     print("Processing track names")

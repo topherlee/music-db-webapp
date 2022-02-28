@@ -23,7 +23,6 @@ def home():
 @app.route('/artists')
 def artists():
     cursor = get_db_conn()
-    #only pick artist names who had released at least one song in the year 2010 from the artists' database table
     cursor.execute('SELECT * FROM artists ORDER BY artist_name ASC')
     artist_names = cursor.fetchall()
     cursor.close()
