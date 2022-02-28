@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>List of Tracks Released in 2010</h2>
+{% for track in tracks %}
+{{ track["track_name"] }} |
+<a href = {{ url_for('artist_details', id=(track["artist_id"])) }}>{{ track["artist_name"] }}</a> |
+{{ track["track_id"] }} |
+<br>
+<br>
+{% endfor %}
+{% endblock content %}

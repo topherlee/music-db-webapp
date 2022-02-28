@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>List of Artists Who Released Music in 2010:</h2>
+<table border = "1">
+    <tr>
+        <th>Name</th>
+        <th>MusicBrainz Link</th>
+    </tr>
+    {% for artist in artist_names %}
+    <tr>
+        <td><a href = {{ url_for('artist_details', id=(artist["artist_id"])) }}>{{ artist["artist_name"] }}</a></td>
+        <td align="center"><a href = 'https://musicbrainz.org/artist/{{ artist["artist_mbid"] }}' title = 'Link to {{ artist["artist_name"] }}&#39s MusicBrainz Page'>MB</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}
