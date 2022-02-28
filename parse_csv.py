@@ -29,13 +29,13 @@ with open('dataset/tracks_2010.csv', newline='') as tracks_file:
     reader = csv.reader(tracks_file, delimiter=",")
     next(reader)                                    #skip header line
     print("Processing track names")
+    id_list = []
     for row in reader:
         #print(row)
         year = row[0]
         track_id = row[1]
         artist_name = row[2]
-        track_name = row[3]
-        
+        track_name = row[3]  
         #fetch artist_id from artists table
         cursor.execute('SELECT * FROM artists WHERE artist_name = ?', (artist_name,))
         ids = cursor.fetchall()
@@ -43,8 +43,22 @@ with open('dataset/tracks_2010.csv', newline='') as tracks_file:
         if ids == []:
             continue
         artist_id = ids[0][0]
-
+        id_list.append(artist_id)
         cursor.execute('INSERT INTO tracklists VALUES (?, ?, ?, ?, ?)', (artist_id, track_id, artist_name,track_name, year))
         connection.commit()
+    #print(id_list)
+
+with open('dataset/unique_artists.csv', newline='') as artist_file:
+    reader = csv.reader(artist_file, delimiter=",")
+    next(reader)                                    #skip header line
+    print("Deleting artists' names if not found in tracklist")
+    for row in reader:
+        #print(row)
+        artist_id = row[0]
+        if artist_id not in id_list:
+            #print(row[3])
+            cursor.execute('DELETE FROM artists WHERE artist_id = ?', (artist_id,))
+            connection.commit()
+
 
 connection.close()
