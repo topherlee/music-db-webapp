@@ -34,8 +34,12 @@ def tracks():
     cursor = get_db_conn()
     cursor.execute('SELECT * FROM tracklists ORDER BY track_name')
     tracks = cursor.fetchall()
+    cursor.close()
     return render_template('tracks.html', title='Tracks List', tracks = tracks)
 
+@app.route('/search')
+def search():
+    pass
 
 @app.route('/artist_details/<id>')
 def artist_details(id):
