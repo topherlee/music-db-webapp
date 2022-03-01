@@ -1,14 +1,17 @@
 {% extends "layout.html" %}
 {% block content %}
 <form action="/search" method="post">
-    Search: <input type="text" name="query">
-    by: <input type="radio" checked="checked" required="required" name="search_type" id="artist" value="artist">Artist name 
-    <input type="radio" name="search_type" id="track" value="track">Track Name
-    <br>
-    <input type="Submit" value="Go!">
+    <fieldset>
+        <legend>Search the Database</legend>
+        <input type="text" name="query">
+        Filter By: <input type="radio" checked="checked" required="required" name="search_type" id="artist" value="artist">Artist Name 
+        <input type="radio" name="search_type" id="track" value="track">Track Name
+        <br>
+        <input type="Submit" value="Go!">
+    </fieldset>
 </form>
 
-{% if search_type == "artist" %}
+{% if search_type == "artist" and query != "" %}
     <p>Search results for "<b>{{ query }}</b>" in Artists:</p>
     {% for artist in artists %}
         <a href= {{ url_for('artist_details', id=artist["artist_id"]) }}>{{ artist["artist_name"] }}</a>
@@ -16,7 +19,7 @@
         <br>
     {% endfor %}
     <b>{{ statement }}</b>
-{% elif search_type == "track" %}
+{% elif search_type == "track" and query != "" %}
     <p>Search results for "<b>{{ query }}</b>" in Tracks:</p>
     {% for track in tracks %}
         <a href='https://www.youtube.com/results?search_query={{ track["track_name"] + " " + track["artist_name"] }}' title='Search {{ track["track_name"] }} on YouTube'>{{ track["track_name"] }}</a> |

@@ -1,12 +1,51 @@
 {% extends "layout.html" %}
 {% block content %}
 <form action="/tracks" method="post">
-    Filter by year: <input type="radio" checked="checked" name="year" id="2009" value="2009">2009
-    <input type="radio" required="required" name="year" id="2010" value="2010">2010
-    <input type="submit" value="Go">
+    <fieldset>
+        <legend>Filter Tracklist By:</legend>
+        Release Year:
+        <input type="radio" checked="checked" name="year" id="2009" value="2009">2009
+        <input type="radio" required="required" name="year" id="2010" value="2010">2010
+        <br>
+        Track Title:
+        <br>
+        <input type="checkbox" name="letter" value="A">A
+        <input type="checkbox" name="letter" value="B">B
+        <input type="checkbox" name="letter" value="C">C
+        <input type="checkbox" name="letter" value="D">D
+        <input type="checkbox" name="letter" value="E">E
+        <input type="checkbox" name="letter" value="F">F
+        <input type="checkbox" name="letter" value="G">G
+        <input type="checkbox" name="letter" value="H">H
+        <input type="checkbox" name="letter" value="I">I
+        <input type="checkbox" name="letter" value="J">J
+        <input type="checkbox" name="letter" value="K">K
+        <input type="checkbox" name="letter" value="L">L
+        <input type="checkbox" name="letter" value="M">M
+        <input type="checkbox" name="letter" value="N">N
+        <input type="checkbox" name="letter" value="O">O
+        <input type="checkbox" name="letter" value="P">P
+        <input type="checkbox" name="letter" value="Q">Q
+        <input type="checkbox" name="letter" value="R">R
+        <input type="checkbox" name="letter" value="S">S
+        <input type="checkbox" name="letter" value="T">T
+        <input type="checkbox" name="letter" value="U">U
+        <input type="checkbox" name="letter" value="V">V
+        <input type="checkbox" name="letter" value="W">W
+        <input type="checkbox" name="letter" value="X">X
+        <input type="checkbox" name="letter" value="Y">Y
+        <input type="checkbox" name="letter" value="Z">Z
+        <input type="checkbox" name="letter" value="number">0-9
+        <br>
+        <input type="submit" value="Go!">
+        <br>
+        {% if letter != [] and year != None %}
+        Filtering track titles starting with: {{ filters }}
+        {% endif %}
+    </fieldset>
 </form>
 {% if year == "2009" %}
-    <h2>List of Tracks Released in 2009</h2>
+    <h2>List of Tracks Released in 2009:</h2>
     {% for track in tracks %}
         Title: {{ track["track_name"] }} |
         Artist: <a href = {{ url_for('artist_details', id=(track["artist_id"])) }}>{{ track["artist_name"] }}</a> |
