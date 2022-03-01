@@ -13,7 +13,6 @@ def get_db_conn():
 
 
 @app.route('/')
-@app.route('/home')
 def home():
     cursor = get_db_conn()
     cursor.close()
@@ -25,8 +24,17 @@ def artists():
     cursor = get_db_conn()
     cursor.execute('SELECT * FROM artists ORDER BY artist_name ASC')
     artist_names = cursor.fetchall()
+    cursor.execute('SELECT * FROM tracklists ORDER BY artist_name ASC')
+    tracks = cursor.fetchall()
+    artlist = {}
+    #calculating number of tracks released by an artist
+    for row in tracks:
+        if row[2] not in artlist:
+            artlist[row[2]] = 1
+        else:
+            artlist[row[2]] += 1
     cursor.close()
-    return render_template('artists.html', title='Artists List', artist_names=artist_names)
+    return render_template('artists.html', title='Artists List', artist_names=artist_names, artlist=artlist)
     
 
 @app.route('/tracks', methods = ["GET", "POST"])
@@ -102,8 +110,18 @@ def artist_details(id):
     cursor.close()
     return render_template('artist_details.html', title=f'{artist} - Artist Details', tracks=tracks, artist_detail=artist_detail)
 
+"""
+cursor = get_db_conn()
+cursor.execute('SELECT * FROM tracklists ORDER BY artist_name ASC')
+tracks = cursor.fetchall()
+artlist = {}
+for row in tracks:
+    if row[2] not in artlist:
+        artlist[row[2]] = 1
+    else:
+        artlist[row[2]] += 1
+print(artlist)
+"""
 
-#"""
 if __name__ == '__main__':
     app.run(debug=True)
-#"""
