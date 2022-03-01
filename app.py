@@ -33,14 +33,33 @@ def artists():
 def tracks():
     tracks = None
     year = None
+    letter = ""
+    filters = None
+    sum = None
     cursor = get_db_conn()
     if request.method == "POST":
         year = request.form["year"]
-        cursor.execute('SELECT * FROM tracklists WHERE year = ? ORDER BY track_name', (year,))
-        tracks = cursor.fetchall()
-    
+        letter = request.form.getlist("letter")
+        
+        if letter != []:
+            #to filter track titles starting with numbers
+            if "number" in letter:
+                letter.remove("number")
+                for i in range(10):
+                    letter.append(str(i))
+            #assemble syntax through python (hopefully safe because no outside input except for predefined value)
+            syntax = f'SELECT * FROM tracklists WHERE track_name LIKE "{letter[0]}%" '
+            for i in letter[1:]:   
+                syntax += f'OR track_name LIKE "{i}%" '
+            syntax += 'AND year = ? ORDER BY track_name'
+            cursor.execute(syntax, (year,))
+        else:
+            cursor.execute('SELECT * FROM tracklists WHERE year = ? ORDER BY track_name', (year,))
+    if letter != []:
+        filters = (",").join(letter)
+    tracks = cursor.fetchall()
     cursor.close()
-    return render_template('tracks.html', title='Tracks List', tracks = tracks, year=year)
+    return render_template('tracks.html', title='Tracks List', filters=filters, letter=letter, tracks=tracks, year=year, sum=sum)
 
 @app.route('/search', methods = ["GET", "POST"])
 def search():
