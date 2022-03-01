@@ -1,7 +1,5 @@
-*   ae336ab : Merge remote-tracking branch 'refs/remotes/origin/main' into main
-|\  
-| * 54d937a : implemented tracks filtering to improve tracks page performance
-|/  
+* 7359808 : implemented song count on artists page
+* 54d937a : implemented tracks filtering to improve tracks page performance
 * d24b472 : cleanup code
 * 4c1f706 : updated search page
 * dfde228 : fixed YouTube hyperlink bug on the search by track page

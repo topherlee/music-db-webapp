@@ -63,6 +63,7 @@ def tracks():
             cursor.execute(syntax, (year,))
         else:
             cursor.execute('SELECT * FROM tracklists WHERE year = ? ORDER BY track_name', (year,))
+    #description text for enabled filters on search box 
     if letter != []:
         filters = (",").join(letter)
     tracks = cursor.fetchall()
@@ -110,18 +111,6 @@ def artist_details(id):
     cursor.close()
     return render_template('artist_details.html', title=f'{artist} - Artist Details', tracks=tracks, artist_detail=artist_detail)
 
-"""
-cursor = get_db_conn()
-cursor.execute('SELECT * FROM tracklists ORDER BY artist_name ASC')
-tracks = cursor.fetchall()
-artlist = {}
-for row in tracks:
-    if row[2] not in artlist:
-        artlist[row[2]] = 1
-    else:
-        artlist[row[2]] += 1
-print(artlist)
-"""
 
 if __name__ == '__main__':
     app.run(debug=True)
