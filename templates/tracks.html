@@ -1,12 +1,30 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>List of Tracks Released in 2009-10</h2>
-{% for track in tracks %}
-Title: {{ track["track_name"] }} |
-Artist: <a href = {{ url_for('artist_details', id=(track["artist_id"])) }}>{{ track["artist_name"] }}</a> |
-Year: {{ track["year"]}} |
-ID: {{ track["track_id"] }} |
-<br>
-<br>
-{% endfor %}
+<form action="/tracks" method="post">
+    Filter by year: <input type="radio" checked="checked" name="year" id="2009" value="2009">2009
+    <input type="radio" required="required" name="year" id="2010" value="2010">2010
+    <input type="submit" value="Go">
+</form>
+{% if year == "2009" %}
+    <h2>List of Tracks Released in 2009</h2>
+    {% for track in tracks %}
+        Title: {{ track["track_name"] }} |
+        Artist: <a href = {{ url_for('artist_details', id=(track["artist_id"])) }}>{{ track["artist_name"] }}</a> |
+        Year: {{ track["year"]}} |
+        ID: {{ track["track_id"] }} |
+        <br>
+        <br>
+    {% endfor %}
+{% elif year == "2010" %}
+    <h2>List of Tracks Released in 2010</h2>
+    {% for track in tracks %}
+        Title: {{ track["track_name"] }} |
+        Artist: <a href = {{ url_for('artist_details', id=(track["artist_id"])) }}>{{ track["artist_name"] }}</a> |
+        Year: {{ track["year"]}} |
+        ID: {{ track["track_id"] }} |
+        <br>
+        <br>
+    {% endfor %}
+{% endif %}
+
 {% endblock content %}
