@@ -46,7 +46,7 @@ def tracks():
 def search():
     cursor = get_db_conn()
     search_type = None
-    query = None
+    query = ""
     artists = None
     tracks = None
     statement = ""
