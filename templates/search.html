@@ -2,8 +2,8 @@
 {% block content %}
 <form action="/search" method="post">
     Search: <input type="text" name="query">
-    by: <input type="radio" required="required" name="search_type" id="artist" value="artist">Artist name 
-    <input type="radio" checked="checked" name="search_type" id="track" value="track">Track Name
+    by: <input type="radio" checked="checked" required="required" name="search_type" id="artist" value="artist">Artist name 
+    <input type="radio" name="search_type" id="track" value="track">Track Name
     <br>
     <input type="Submit" value="Go!">
 </form>
