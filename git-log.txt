@@ -1,0 +1,24 @@
+* dfde228 : fixed YouTube hyperlink bug on the search by track page
+* c639c27 : small fix on search
+* 9e21198 : added search page and hopefully fixed tracks page
+*   d717181 : Merge branch 'main' of github.com:topherlee/2010s-artists-tracks-webapp into main
+|\  
+| * c1af689 : Update README.md
+| * 5a862af : Update README.md
+* | bff503c : updated tracks.html
+* | c8d32e1 : attempt to fix tracks page
+* | 682767a : expanded database and dataset to include tracks from year 2009
+|/  
+* 248db12 : moved parse_csv.py
+* c844ff9 : removed unnecessary files
+* b1ae0e3 : fixed Procfile
+* bbcf260 : fixed heroku deploy
+* f53543f : Init deploy
+* 915f336 : misc fixes
+* 19b258e : edited database and database scripts
+* e56e56c : added html templates
+* f91a3ba : created main app.py
+* fa52bd6 : removed large unused dataset
+* faa97e6 : finished creating database from csv files
+* 997768d : Initial commit
+git log --pretty=format:'%h : %s' --graph > git-log.txt

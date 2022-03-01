@@ -41,6 +41,7 @@ with open('dataset/tracks_2009_2010.csv', newline='') as tracks_file:
         ids = cursor.fetchall()
         #if artist_id for this track cannot be found, skip adding it into the database
         if ids == []:
+            print(f"Skipping {artist_name} because tracks not found")
             continue
         artist_id = ids[0][0]
         id_list.append(artist_id)

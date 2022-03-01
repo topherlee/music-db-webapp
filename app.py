@@ -61,13 +61,13 @@ def search():
             tracks = cursor.fetchall()
             #print error statement if query not found
             if len(tracks) == 0:
-                statement = f'"{query}" cannot be found'
+                statement = f'"{query}" not found'
         elif search_type == "artist":
             cursor.execute("SELECT * FROM artists WHERE artist_name LIKE ?", (query_escaped,))
             artists = cursor.fetchall()
             #print error statement if query not found
             if len(artists) == 0:
-                statement = f'"{query}" cannot be found'
+                statement = f'"{query}" not found'
 
     cursor.close()
     return render_template('search.html', title='Search', query=query, search_type=search_type, artists=artists, tracks=tracks, statement=statement)
