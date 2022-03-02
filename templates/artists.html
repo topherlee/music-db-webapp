@@ -4,14 +4,14 @@
 <table border = "1">
     <tr>
         <th>Name</th>
-        <th>Song Count in DB</th>
-        <th>MusicBrainz Link</th>
+        <th># of Tracks in DB</th>
+        <th>External Link</th>
     </tr>
     {% for artist in artist_names %}
     <tr>
         <td><a href = {{ url_for('artist_details', id=(artist["artist_id"])) }}>{{ artist["artist_name"] }}</a></td>
         <td align="center">{{ artlist[artist["artist_name"]] }}</td>
-        <td align="center"><a href = 'https://musicbrainz.org/artist/{{ artist["artist_mbid"] }}' title = 'Link to {{ artist["artist_name"] }}&#39s MusicBrainz Page'>MB</a></td>
+        <td align="center"><a href = 'https://musicbrainz.org/artist/{{ artist["artist_mbid"] }}' title = 'Link to {{ artist["artist_name"] }}&#39s MusicBrainz Page'>MusicBrainz</a></td>
     </tr>
     {% endfor %}
 </table>

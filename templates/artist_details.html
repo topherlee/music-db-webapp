@@ -1,7 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 <h2 align="center" title="Artist name: {{ tracks[0]['artist_name'] }}">{{ tracks[0]["artist_name"] }}</h2>
-<a href = 'https://musicbrainz.org/artist/{{ artist_detail[0]["artist_mbid"] }}' title = 'Go to {{ tracks[0]["artist_name"] }}&#39s MusicBrainz Page'><p align="center">MusicBrainz</p></a>
+<p align="center">
+    Number of Tracks in Database: {{ song_count }} |
+    <a href = 'https://musicbrainz.org/artist/{{ artist_detail[0]["artist_mbid"] }}' title = 'Go to {{ tracks[0]["artist_name"] }}&#39s MusicBrainz Page'>MusicBrainz</a>
+</p>
 {% for track in tracks %}
 Year: {{ track["year"] }} | 
 Title: <a href = 'https://www.youtube.com/results?search_query={{ track["track_name"] + " " + tracks[0]["artist_name"] }}' title='Search {{ track["track_name"] }} on YouTube'>{{ track["track_name"] }}</a> | 

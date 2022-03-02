@@ -68,7 +68,7 @@ def tracks():
         filters = (",").join(letter)
     tracks = cursor.fetchall()
     cursor.close()
-    return render_template('tracks.html', title='Tracks List', filters=filters, letter=letter, tracks=tracks, year=year, sum=sum)
+    return render_template('tracks.html', title='Tracklist', filters=filters, letter=letter, tracks=tracks, year=year, sum=sum)
 
 @app.route('/search', methods = ["GET", "POST"])
 def search():
@@ -106,10 +106,11 @@ def artist_details(id):
     cursor.execute('SELECT * FROM tracklists WHERE artist_id = ? ORDER BY track_name', (id,))
     tracks = cursor.fetchall()
     artist = tracks[0][2]
+    song_count = len(tracks)
     cursor.execute('SELECT * FROM artists WHERE artist_id = ?', (id,))
     artist_detail = cursor.fetchall()
     cursor.close()
-    return render_template('artist_details.html', title=f'{artist} - Artist Details', tracks=tracks, artist_detail=artist_detail)
+    return render_template('artist_details.html', title=f'{artist} - Artist Details', tracks=tracks, song_count=song_count, artist_detail=artist_detail)
 
 
 if __name__ == '__main__':
