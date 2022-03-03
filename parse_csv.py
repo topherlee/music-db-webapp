@@ -25,7 +25,7 @@ with open('dataset/unique_artists.csv', newline='') as artist_file:
         cursor.execute('INSERT INTO artists VALUES (?, ?, ?)', (artist_id, artist_name, artist_mbid))
         connection.commit()
 
-with open('dataset/tracks_2009_2010.csv', newline='') as tracks_file:
+with open('dataset/tracks_per_year.csv', 'r', newline='') as tracks_file:
     reader = csv.reader(tracks_file, delimiter=",")
     next(reader)                                    #skip header line
     print("Processing track names")
@@ -39,9 +39,9 @@ with open('dataset/tracks_2009_2010.csv', newline='') as tracks_file:
         #fetch artist_id from artists table
         cursor.execute('SELECT * FROM artists WHERE artist_name = ?', (artist_name,))
         ids = cursor.fetchall()
-        #if artist_id for this track cannot be found, skip adding it into the database
+        #if the artist for this track cannot be found in the artists' table, skip adding it into the database
         if ids == []:
-            print(f"Skipping {artist_name} because tracks not found")
+            print(f"Skipping {artist_name} - {track_name} because artist's name not found in artists table")
             continue
         artist_id = ids[0][0]
         id_list.append(artist_id)
