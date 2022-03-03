@@ -1,4 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-
+<p align="center">
+<a href= {{ url_for('artist_details', id = artists[0]["artist_id"]) }}>I'm feeling lucky</a> |
+<a target="_blank" href = 'https://www.youtube.com/results?search_query={{ tracks[0]["track_name"] + " " + tracks[0]["artist_name"] }}' title=' on YouTube'>Tracks</a></p>
 {% endblock content %}

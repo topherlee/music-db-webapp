@@ -15,8 +15,13 @@ def get_db_conn():
 @app.route('/')
 def home():
     cursor = get_db_conn()
+    #take a random song / artist for the "im feeling lucky" button
+    cursor.execute('SELECT * FROM artists ORDER BY RANDOM() LIMIT 1')
+    artists = cursor.fetchall()
+    cursor.execute('SELECT * FROM tracklists ORDER BY RANDOM() LIMIT 1')
+    tracks = cursor.fetchall()
     cursor.close()
-    return render_template('home.html', title='Homepage')
+    return render_template('home.html', title='Homepage', tracks=tracks, artists=artists)
 
 
 @app.route('/artists')
