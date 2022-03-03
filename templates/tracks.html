@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+
 <form action="/tracks" method="post">
     <fieldset>
         <legend>Filter Tracklist by:</legend>
@@ -98,7 +99,6 @@
         
         <br>
         Track Title:
-        <br>
         <input type="checkbox" name="letter" value="A">A
         <input type="checkbox" name="letter" value="B">B
         <input type="checkbox" name="letter" value="C">C
@@ -139,7 +139,7 @@
     {% if tracks == [] %}
     No tracks found for {{ year }}
     {% endif %}
-    {{ sum }} track(s) found in database
+    {{ sum }} track(s) starting with {{ filters }} found in our database
     <br>
     <br>
     {% for track in tracks %}

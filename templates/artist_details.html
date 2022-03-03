@@ -2,8 +2,11 @@
 {% block content %}
 <h2 align="center" title="Artist name: {{ tracks[0]['artist_name'] }}">{{ tracks[0]["artist_name"] }}</h2>
 <p align="center">
-    Number of Tracks in Database: {{ song_count }} |
     <a href = 'https://musicbrainz.org/artist/{{ artist_detail[0]["artist_mbid"] }}' title = 'Go to {{ tracks[0]["artist_name"] }}&#39s MusicBrainz Page'>MusicBrainz</a>
+    <br>
+    Number of Tracks in Database: {{ song_count }}
+    <br>
+    {{ statistic }} 
 </p>
 {% for track in tracks %}
 Year: {{ track["year"] }} | 

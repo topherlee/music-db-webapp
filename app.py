@@ -11,7 +11,6 @@ def get_db_conn():
     cursor = connection.cursor()
     return cursor
 
-
 @app.route('/')
 def home():
     cursor = get_db_conn()
@@ -20,8 +19,11 @@ def home():
     artists = cursor.fetchall()
     cursor.execute('SELECT * FROM tracklists ORDER BY RANDOM() LIMIT 1')
     tracks = cursor.fetchall()
+    #show total artists and tracks in database
+    artist_count = cursor.execute('SELECT COUNT(*) FROM artists').fetchone()[0]
+    tracks_count = cursor.execute('SELECT COUNT(*) FROM tracklists').fetchone()[0]
     cursor.close()
-    return render_template('home.html', title='Homepage', tracks=tracks, artists=artists)
+    return render_template('home.html', title='Homepage', tracks=tracks, artists=artists, tracks_count=tracks_count, artist_count=artist_count)
 
 
 @app.route('/artists')
@@ -31,7 +33,8 @@ def artists():
     artist_names = cursor.fetchall()
     cursor.execute('SELECT * FROM tracklists ORDER BY artist_name ASC')
     tracks = cursor.fetchall()
-    artlist = {}
+    artist_count = cursor.execute('SELECT COUNT(*) FROM artists').fetchone()[0]
+    artlist = {}            #key:artist value:song_count
     #calculating number of tracks released by an artist
     for row in tracks:
         if row[2] not in artlist:
@@ -39,7 +42,7 @@ def artists():
         else:
             artlist[row[2]] += 1
     cursor.close()
-    return render_template('artists.html', title='Artists List', artist_names=artist_names, artlist=artlist)
+    return render_template('artists.html', title='Artists List', artist_names=artist_names, artlist=artlist, artist_count=artist_count)
     
 
 @app.route('/tracks', methods = ["GET", "POST"])
@@ -95,13 +98,13 @@ def search():
         query = request.form["query"]
    
         if search_type == "track":
-            cursor.execute("SELECT * FROM tracklists WHERE track_name LIKE ?", (query_escaped,))
+            cursor.execute("SELECT * FROM tracklists WHERE track_name LIKE ? ORDER BY year DESC", (query_escaped,))
             tracks = cursor.fetchall()
             #print error statement if query not found
             if len(tracks) == 0:
                 statement = f'"{query}" not found'
         elif search_type == "artist":
-            cursor.execute("SELECT * FROM artists WHERE artist_name LIKE ?", (query_escaped,))
+            cursor.execute("SELECT * FROM artists WHERE artist_name LIKE ? ORDER BY artist_name", (query_escaped,))
             artists = cursor.fetchall()
             #print error statement if query not found
             if len(artists) == 0:
@@ -113,21 +116,26 @@ def search():
 @app.route('/artist_details/<id>')
 def artist_details(id):
     cursor = get_db_conn()
+    cursor.execute('SELECT * FROM artists WHERE artist_id = ?', (id,))
+    artist_detail = cursor.fetchall()
+    #get tracks released by this artist
     cursor.execute('SELECT * FROM tracklists WHERE artist_id = ? ORDER BY year', (id,))
     tracks = cursor.fetchall()
     artist = tracks[0][2]
+    #song count for this artist
     song_count = len(tracks)
-    cursor.execute('SELECT * FROM artists WHERE artist_id = ?', (id,))
-    artist_detail = cursor.fetchall()
+    #total song and artist count in database
+    artist_count = cursor.execute('SELECT COUNT(*) FROM artists').fetchone()[0]
+    tracks_count = cursor.execute('SELECT COUNT(*) FROM tracklists').fetchone()[0]
+    average = int(tracks_count)/int(artist_count)
+    if song_count > average:
+        statistic = f"{artist} has more songs recorded than the average artists in our database"
+    elif song_count < average:
+        statistic = f"{artist} has fewer songs recorded than the average artists in our database"
+    else:
+        statistic = f"{artist} has about the same amount of songs as the average artist in our database"
     cursor.close()
-    return render_template('artist_details.html', title=f'{artist} - Artist Details', tracks=tracks, song_count=song_count, artist_detail=artist_detail)
-"""
-cursor = get_db_conn()
-cursor.execute('SELECT * FROM tracklists WHERE year = ? AND artist_name LIKE "A%" ORDER BY year', (1996,))
-tracks = cursor.fetchall()
-for i in range(len(tracks)):
-    print(tracks[i][4])
-"""
+    return render_template('artist_details.html', title=f'{artist} - Artist Details', tracks=tracks, song_count=song_count, artist_detail=artist_detail, average=average, statistic=statistic)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -12,7 +12,7 @@ cursor.execute('CREATE TABLE artists (artist_id TEXT, artist_name TEXT, artist_m
 cursor.execute('CREATE TABLE tracklists (artist_id TEXT, track_id TEXT, artist_name TEXT, track_name TEXT, year INTEGER, FOREIGN KEY (artist_name) REFERENCES artists(artist_name), FOREIGN KEY (artist_id) REFERENCES artists(artist_id))')
 
 #reading from artist csv file
-with open('dataset/unique_artists.csv', newline='') as artist_file:
+with open('dataset/unique_artists.csv', "r", newline='') as artist_file:
     reader = csv.reader(artist_file, delimiter=",")
     next(reader)                                    #skip header line
     print("Processing artists names")
@@ -49,7 +49,7 @@ with open('dataset/tracks_per_year.csv', 'r', newline='') as tracks_file:
         connection.commit()
     #print(id_list)
 
-with open('dataset/unique_artists.csv', newline='') as artist_file:
+with open('dataset/unique_artists.csv', "r", newline='') as artist_file:
     reader = csv.reader(artist_file, delimiter=",")
     next(reader)                                    #skip header line
     print("Deleting artists' names if not found in tracklist")
