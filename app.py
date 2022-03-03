@@ -51,9 +51,10 @@ def tracks():
     sum = None
     cursor = get_db_conn()
     if request.method == "POST":
-        year = request.form["year"]
         letter = request.form.getlist("letter")
+        year = request.form["year"]
         
+
         if letter != []:
             #to filter track titles starting with numbers
             if "number" in letter:
@@ -61,17 +62,21 @@ def tracks():
                 for i in range(10):
                     letter.append(str(i))
             #assemble syntax through python (hopefully safe because no outside input except for predefined value)
-            syntax = f'SELECT * FROM tracklists WHERE track_name LIKE "{letter[0]}%" '
-            for i in letter[1:]:   
-                syntax += f'OR track_name LIKE "{i}%" '
-            syntax += 'AND year = ? ORDER BY track_name'
-            cursor.execute(syntax, (year,))
+            syntax = f'SELECT * FROM tracklists WHERE year = {year} AND (track_name LIKE "{letter[0]}%" '
+            if len(letter) > 1:
+                for i in letter[1:]:   
+                    syntax += f'OR track_name LIKE "{i}%" '
+                syntax += ') ORDER BY track_name'
+            else:
+                syntax += ') ORDER BY track_name'
+            cursor.execute(str(syntax))
         else:
             cursor.execute('SELECT * FROM tracklists WHERE year = ? ORDER BY track_name', (year,))
     #description text for enabled filters on search box 
     if letter != []:
         filters = (",").join(letter)
     tracks = cursor.fetchall()
+    sum=len(tracks)
     cursor.close()
     return render_template('tracks.html', title='Tracklist', filters=filters, letter=letter, tracks=tracks, year=year, sum=sum)
 
@@ -108,7 +113,7 @@ def search():
 @app.route('/artist_details/<id>')
 def artist_details(id):
     cursor = get_db_conn()
-    cursor.execute('SELECT * FROM tracklists WHERE artist_id = ? ORDER BY track_name', (id,))
+    cursor.execute('SELECT * FROM tracklists WHERE artist_id = ? ORDER BY year', (id,))
     tracks = cursor.fetchall()
     artist = tracks[0][2]
     song_count = len(tracks)
@@ -116,7 +121,13 @@ def artist_details(id):
     artist_detail = cursor.fetchall()
     cursor.close()
     return render_template('artist_details.html', title=f'{artist} - Artist Details', tracks=tracks, song_count=song_count, artist_detail=artist_detail)
-
+"""
+cursor = get_db_conn()
+cursor.execute('SELECT * FROM tracklists WHERE year = ? AND artist_name LIKE "A%" ORDER BY year', (1996,))
+tracks = cursor.fetchall()
+for i in range(len(tracks)):
+    print(tracks[i][4])
+"""
 
 if __name__ == '__main__':
     app.run(debug=True)
