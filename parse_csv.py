@@ -2,7 +2,7 @@ import csv
 import sqlite3
 
 #creates connection to SQLite Database
-connection = sqlite3.connect("artist_tracklist.db")
+connection = sqlite3.connect("artist_tracklist1.db")
 cursor = connection.cursor()
 
 #prevent duplicates before creating table
@@ -17,7 +17,6 @@ with open('dataset/unique_artists.csv', "r", newline='') as artist_file:
     next(reader)                                    #skip header line
     print("Processing artists names")
     for row in reader:
-        #print(row)
         artist_id = row[0]
         artist_mbid = row[1]
         track_id = row[2]
@@ -30,9 +29,13 @@ with open('dataset/tracks_per_year.csv', 'r', newline='') as tracks_file:
     next(reader)                                    #skip header line
     print("Processing track names")
     id_list = []
+    
     for row in reader:
-        #print(row)
-        year = row[0]
+        try:
+            year = int(row[0])
+        except ValueError:
+            print(f"Year value invalid, skipping the track {artist_name} - {track_name}")
+            continue
         track_id = row[1]
         artist_name = row[2]
         track_name = row[3]  
@@ -47,17 +50,14 @@ with open('dataset/tracks_per_year.csv', 'r', newline='') as tracks_file:
         id_list.append(artist_id)
         cursor.execute('INSERT INTO tracklists VALUES (?, ?, ?, ?, ?)', (artist_id, track_id, artist_name,track_name, year))
         connection.commit()
-    #print(id_list)
 
 with open('dataset/unique_artists.csv', "r", newline='') as artist_file:
     reader = csv.reader(artist_file, delimiter=",")
     next(reader)                                    #skip header line
     print("Deleting artists' names if not found in tracklist")
     for row in reader:
-        #print(row)
         artist_id = row[0]
         if artist_id not in id_list:
-            #print(row[3])
             cursor.execute('DELETE FROM artists WHERE artist_id = ?', (artist_id,))
             connection.commit()
 
