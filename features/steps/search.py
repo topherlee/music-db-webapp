@@ -7,7 +7,7 @@ def step_impl(context):
 @when(u'I click and type on the search box')
 def step_impl(context):
     assert context.browser.current_url == 'http://127.0.0.1:5000/search'
-    context.browser.find_element_by_name("query").send_keys("white stripe")
+    context.browser.find_element_by_name("query").send_keys("the white stripes")
     context.browser.find_element_by_id("artist").click()
     context.browser.find_element_by_id("submit").click()
 

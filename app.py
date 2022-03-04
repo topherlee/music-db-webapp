@@ -95,7 +95,7 @@ def search():
 
     if request.method == "POST":
         search_type = request.form["search_type"]
-        query_escaped = "%" + request.form["query"] + "%"
+        query_escaped = request.form["query"] + "%"
         query = request.form["query"]
    
         if search_type == "track":
