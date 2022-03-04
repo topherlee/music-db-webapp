@@ -141,14 +141,13 @@
     {% endif %}
     {{ sum }} track(s) starting with {{ filters }} found in our database
     <br>
-    <br>
     {% for track in tracks %}
+        <p style="font-family: 'Segoe UI', sans-serif">
         Title: <a href='https://www.youtube.com/results?search_query={{ track["track_name"] + " " + track["artist_name"] }}' target="_blank">{{ track["track_name"] }}</a> |
         Artist: <a href = {{ url_for('artist_details', id=(track["artist_id"])) }}>{{ track["artist_name"] }}</a> |
         Year: {{ track["year"]}} |
         ID: {{ track["track_id"] }} |
-        <br>
-        <br>
+        </p>
     {% endfor %}
 {% endif %}
 

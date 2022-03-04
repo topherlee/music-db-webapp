@@ -15,20 +15,20 @@
 {% if search_type == "artist" and query != "" %}
     <p>Search results for "<b>{{ query }}</b>" in Artists:</p>
     {% for artist in artists %}
+        <p style="font-family: 'Helvetica Neue', sans-serif">
         <a href= {{ url_for('artist_details', id=artist["artist_id"]) }}>{{ artist["artist_name"] }}</a>
-        <br>
-        <br>
+        </p>
     {% endfor %}
     <b>{{ statement }}</b>
 {% elif search_type == "track" and query != "" %}
     <p>Search results for "<b>{{ query }}</b>" in Tracks:</p>
     {% for track in tracks %}
+        <p style="font-family: 'Helvetica Neue', sans-serif">
         <a href='https://www.youtube.com/results?search_query={{ track["track_name"] + " " + track["artist_name"] }}' title='Search {{ track["track_name"] }} on YouTube'>{{ track["track_name"] }}</a> |
         <a href= {{ url_for('artist_details', id=track["artist_id"]) }}>{{ track["artist_name"] }}</a> |
         {{ track["year"] }} |
         {{ track["track_id"] }} |
-        <br>
-        <br>
+        </p>
     {% endfor %}
     <b>{{ statement }}</b>
 {% endif %}

@@ -1,0 +1,58 @@
+* f8f96fa : improved search page
+*   3ed496b : Merge branch 'development' into main
+|\  
+| * 05ea52f : added features testing using behave
+| * fe3e874 : added average statistics on homepage
+| * 0a25962 : added hyperlinks to YouTube search page for each tracks on tracks page
+|/  
+* a890a3e : Update README.md
+* bf52930 : added artist count and tracks count + statistics for each artist details page
+*   92fe8fe : Changed dataset to include the entire tracklist and fixed tracklist page filtering bug
+|\  
+| * 18bad23 : fixed tracks page filtering bug
+|/  
+* 1a247d9 : added the whole tracklist to the dataset
+*   870f0db : implemented random button for homepage Merge branch 'development' into main
+|\  
+| * a9a9004 : implemented random button for homepage
+|/  
+* 901dbcb : html cleanup
+* 4685a29 : cleanup
+*   e932f8b : Merge branch 'development' of github.com:topherlee/2010s-artists-tracks-webapp into development
+|\  
+| *   286b2a4 : Merge branch 'main' into development
+| |\  
+| | *   ae336ab : Merge remote-tracking branch 'refs/remotes/origin/main' into main
+| | |\  
+* | | | 28a3b03 : code cleanup
+|/ / /  
+* | | 7359808 : implemented song count on artists page
+| |/  
+|/|   
+* | 54d937a : implemented tracks filtering to improve tracks page performance
+|/  
+* d24b472 : cleanup code
+* 4c1f706 : updated search page
+* dfde228 : fixed YouTube hyperlink bug on the search by track page
+* c639c27 : small fix on search
+* 9e21198 : added search page and hopefully fixed tracks page
+*   d717181 : Merge branch 'main' of github.com:topherlee/2010s-artists-tracks-webapp into main
+|\  
+| * c1af689 : Update README.md
+| * 5a862af : Update README.md
+* | bff503c : updated tracks.html
+* | c8d32e1 : attempt to fix tracks page
+* | 682767a : expanded database and dataset to include tracks from year 2009
+|/  
+* 248db12 : moved parse_csv.py
+* c844ff9 : removed unnecessary files
+* b1ae0e3 : fixed Procfile
+* bbcf260 : fixed heroku deploy
+* f53543f : Init deploy
+* 915f336 : misc fixes
+* 19b258e : edited database and database scripts
+* e56e56c : added html templates
+* f91a3ba : created main app.py
+* fa52bd6 : removed large unused dataset
+* faa97e6 : finished creating database from csv files
+* 997768d : Initial commit
