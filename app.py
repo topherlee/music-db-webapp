@@ -22,8 +22,9 @@ def home():
     #show total artists and tracks in database
     artist_count = cursor.execute('SELECT COUNT(*) FROM artists').fetchone()[0]
     tracks_count = cursor.execute('SELECT COUNT(*) FROM tracklists').fetchone()[0]
+    average = tracks_count//artist_count
     cursor.close()
-    return render_template('home.html', title='Homepage', tracks=tracks, artists=artists, tracks_count=tracks_count, artist_count=artist_count)
+    return render_template('home.html', title='Homepage', average=average, tracks=tracks, artists=artists, tracks_count=tracks_count, artist_count=artist_count)
 
 
 @app.route('/artists')
@@ -127,7 +128,7 @@ def artist_details(id):
     #total song and artist count in database
     artist_count = cursor.execute('SELECT COUNT(*) FROM artists').fetchone()[0]
     tracks_count = cursor.execute('SELECT COUNT(*) FROM tracklists').fetchone()[0]
-    average = int(tracks_count)/int(artist_count)
+    average = int(tracks_count)//int(artist_count)
     if song_count > average:
         statistic = f"{artist} has more songs recorded than the average artists in our database"
     elif song_count < average:
