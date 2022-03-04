@@ -10,7 +10,7 @@
 </p>
 {% for track in tracks %}
 Year: {{ track["year"] }} | 
-Title: <a href = 'https://www.youtube.com/results?search_query={{ track["track_name"] + " " + tracks[0]["artist_name"] }}' title='Search {{ track["track_name"] }} on YouTube'>{{ track["track_name"] }}</a> | 
+Title: <a href = 'https://www.youtube.com/results?search_query={{ track["track_name"] + " " + tracks[0]["artist_name"] }}' target="_blank" title='Search {{ track["track_name"] }} on YouTube'>{{ track["track_name"] }}</a> | 
 ID: {{ track["track_id"] }} | 
 <br>
 <br>
