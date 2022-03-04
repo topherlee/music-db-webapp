@@ -5,7 +5,9 @@
     <br>
     Artists: {{ artist_count }} | Tracks: {{ tracks_count }}
     <br>
-    <a href= {{ url_for('artist_details', id = artists[0]["artist_id"]) }}><input type="submit" value="I'm Feeling Lucky"></a>
+    Average track titles recorded in the database for each artist: {{ average }}
+    <br>
+    <a href= {{ url_for('artist_details', id = artists[0]["artist_id"]) }}><input type="submit" id="random" value="I'm Feeling Lucky"></a>
     <a target="_blank" href = 'https://www.youtube.com/results?search_query={{ tracks[0]["track_name"] + " " + tracks[0]["artist_name"] }}' title=' on YouTube'><input type="submit" value="Tracks"></a>
 </p>
 {% endblock content %}
