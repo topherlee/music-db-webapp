@@ -139,4 +139,4 @@ def artist_details(id):
     return render_template('artist_details.html', title=f'{artist} - Artist Details', tracks=tracks, song_count=song_count, artist_detail=artist_detail, average=average, statistic=statistic)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
